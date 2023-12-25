@@ -1,10 +1,40 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TeamView from './app/Views/TeamView';
+import RosterView from './app/Views/RosterView';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
-    <TeamView />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Teams"
+          component={TeamView}
+          options={{
+            headerStyle: {
+              backgroundColor: '#000000',
+            },
+            headerTintColor: '#fff'
+          }}
+          />
+          <Stack.Screen 
+            name="Players"
+            component={RosterView}
+            options={{
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTintColor: '#fff'
+            }}
+          />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
 

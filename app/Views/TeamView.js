@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, View, SafeAreaView, ScrollView, Text } from 'react-native';
+import { StyleSheet, Image, View, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
 
 import HawksImage from '../assets/NBATeams/Hawks.png';
 import CelticsImage from '../assets/NBATeams/Celtics.png';
@@ -33,7 +33,7 @@ import JazzImage from '../assets/NBATeams/Jazz.png';
 import WizardsImage from '../assets/NBATeams/Wizards.png';
 
 
-function TeamView(props) {
+export default function TeamView({navigation}) {
 
     const [Items, setItems] = useState([
         { key: 1, team: 'Atlanta Hawks', url: HawksImage },
@@ -75,14 +75,16 @@ function TeamView(props) {
                 {
                     Items.map((item) => {
                         return (
-                            <View style={styles.teams} key={item.key}>
-                                <View style={styles.logobox}>
-                                    <Image style={styles.logo} source={item.url} />
+                            <TouchableOpacity onPress={() => navigation.navigate("Players",  {teamName: item.team})}>
+                                <View style={styles.teams} key={item.key}>
+                                    <View style={styles.logobox} key={item.key}>
+                                        <Image style={styles.logo} source={item.url} />
+                                    </View>
+                                    <View style={styles.textbox} key={item.team}>
+                                        <Text style={styles.text}>{item.team}</Text>
+                                    </View>
                                 </View>
-                                <View style={styles.textbox}>
-                                    <Text style={styles.text}>{item.team}</Text>
-                                </View>
-                            </View>
+                            </TouchableOpacity>
                         )
                     })
                 }
@@ -106,11 +108,11 @@ const styles = StyleSheet.create({
         height: 100,
         width: '100%',
         margin: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#b1002d',
         flexDirection: 'row',
       },
       text: {
-        color: '#000000',
+        color: '#fff',
         fontSize: 30,
         margin: 10,
       },
@@ -125,5 +127,3 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       }
 })
-
-export default TeamView;
