@@ -2,6 +2,7 @@
   "expo": {
     "name": "Betify",
     "slug": "betify",
+    "description": "A tool to help you gambling needs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -15,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.arvintoqm.betify"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.arvintoqm.betify"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +34,12 @@
         "projectId": "d1d4c634-1f48-4556-8a3c-1df3f0af9f26"
       }
     },
-    "owner": "arvintoqm"
+    "owner": "arvintoqm",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d1d4c634-1f48-4556-8a3c-1df3f0af9f26"
+    }
   }
 }

@@ -83,6 +83,8 @@ export default function PlayerPropsView({ navigation, route }) {
                     <Button title="Continue        " onPress={handleButtonPress} />
                 </View>
 
+                
+
                 {showFractionView && (
                   <View style={styles.fractionView}>
                     <View style={styles.fractionContainer}>
@@ -104,6 +106,30 @@ export default function PlayerPropsView({ navigation, route }) {
                     </View>
                   </View>
                 )}
+
+                <View style={styles.lastGames}>
+                  <View style={styles.textFieldContainer}>
+                    <Text style={styles.label}>Last Games:</Text>
+                    <TextInput
+                      style={styles.textField}
+                      keyboardType="numeric"
+                      maxLength={2}
+                      value={value1}
+                      onChangeText={(text) => setValue1(text)}
+                    />
+                  </View>
+
+                  <View style={styles.textFieldContainer}>
+                    <Text style={styles.label}>Last Games:</Text>
+                    <TextInput
+                      style={styles.textField}
+                      keyboardType="numeric"
+                      maxLength={2}
+                      value={value2}
+                      onChangeText={(text) => setValue2(text)}
+                    />
+                  </View>
+                </View>
 
 
                 <View>
@@ -147,30 +173,6 @@ export default function PlayerPropsView({ navigation, route }) {
                     >
                         <Text style={styles.overUnderText}>Under</Text>
                     </TouchableOpacity>
-                </View>
-
-                <View style={styles.lastGames}>
-                  <View style={styles.textFieldContainer}>
-                    <Text style={styles.label}>Last Games:</Text>
-                    <TextInput
-                      style={styles.textField}
-                      keyboardType="numeric"
-                      maxLength={2}
-                      value={value1}
-                      onChangeText={(text) => setValue1(text)}
-                    />
-                  </View>
-
-                  <View style={styles.textFieldContainer}>
-                    <Text style={styles.label}>Last Games:</Text>
-                    <TextInput
-                      style={styles.textField}
-                      keyboardType="numeric"
-                      maxLength={2}
-                      value={value2}
-                      onChangeText={(text) => setValue2(text)}
-                    />
-                  </View>
                 </View>
 
                 
