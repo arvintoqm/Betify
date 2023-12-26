@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import teamsData from '../data/TeamRosters.js';
+import Player from '../data/PlayerStats.js';
 
 export default function RosterView({navigation, route}) {
 
@@ -14,12 +15,15 @@ export default function RosterView({navigation, route}) {
                 {
                     Items.map((item) => {
                         return (
-                            <TouchableOpacity>
-                                <View style={styles.teams} key={item.key}>
-                                    <View style={styles.logobox} key={item.key}>
+                            <TouchableOpacity key={item.key} onPress={async () => { navigation.navigate("Props",  {playerName: item.name, picture: item.uri}, )
+                                // const player = new Player(item.name.split(" ").join("_"));
+                                // console.log(await player.getStats("Points + Assists + Rebounds"));
+                            }}>
+                                <View style={styles.teams}>
+                                    <View style={styles.logobox}>
                                         <Image style={styles.logo} source={{uri: item.uri}} />
                                     </View>
-                                    <View style={styles.textbox} key={item.name}>
+                                    <View style={styles.textbox}>
                                         <Text style={styles.text}>{item.name}</Text>
                                     </View>
                                 </View>

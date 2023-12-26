@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Betify",
-    "slug": "Betify",
+    "slug": "betify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d1d4c634-1f48-4556-8a3c-1df3f0af9f26"
+      }
+    },
+    "owner": "arvintoqm"
   }
 }

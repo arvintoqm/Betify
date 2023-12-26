@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TeamView from './app/Views/TeamView';
 import RosterView from './app/Views/RosterView';
+import PlayerPropsView from './app/Views/PlayerPropsView';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,16 @@ export default function App() {
           <Stack.Screen 
             name="Players"
             component={RosterView}
+            options={{
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTintColor: '#fff'
+            }}
+          />
+          <Stack.Screen 
+            name="Props"
+            component={PlayerPropsView}
             options={{
               headerStyle: {
                 backgroundColor: '#000000',

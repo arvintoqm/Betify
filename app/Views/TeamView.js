@@ -75,12 +75,12 @@ export default function TeamView({navigation}) {
                 {
                     Items.map((item) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate("Players",  {teamName: item.team})}>
-                                <View style={styles.teams} key={item.key}>
-                                    <View style={styles.logobox} key={item.key}>
+                            <TouchableOpacity key={item.key} onPress={() => navigation.navigate("Players",  {teamName: item.team})}>
+                                <View style={styles.teams}>
+                                    <View style={styles.logobox}>
                                         <Image style={styles.logo} source={item.url} />
                                     </View>
-                                    <View style={styles.textbox} key={item.team}>
+                                    <View style={styles.textbox}>
                                         <Text style={styles.text}>{item.team}</Text>
                                     </View>
                                 </View>
