@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
         height: 100,
         width: '100%',
         margin: 10,
-        backgroundColor: '#b1002d',
+        backgroundColor: '#EFC88B',
         flexDirection: 'row',
       },
       text: {
-        color: '#fff',
+        color: '#654321',
         fontSize: 30,
         margin: 10,
       },
