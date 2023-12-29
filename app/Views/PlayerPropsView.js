@@ -33,6 +33,9 @@ export default function PlayerPropsView({ navigation, route }) {
         if (!textInputValue || !selectedSide || !value1 || !value2) {
           Alert.alert("Please Fill all parameters");
         } else {
+
+          await player.setStats();
+
           // Use async/await to wait for the promises to resolve
           let lst1 = await player.getStats(selectedValue, value1, selectedSide, textInputValue);
           let lst2 = await player.getStats(selectedValue, value2, selectedSide, textInputValue);
@@ -78,7 +81,7 @@ export default function PlayerPropsView({ navigation, route }) {
                         value={textInputValue}
                         onChangeText={(text) => setTextInputValue(text)}
                         keyboardType="numeric"
-                        maxLength={45.4}
+                        maxLength={4}
                     />
                     <Button title="Continue        " onPress={handleButtonPress} />
                 </View>

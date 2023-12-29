@@ -5,7 +5,7 @@ import Player from '../data/PlayerStats.js';
 
 export default function RosterView({navigation, route}) {
 
-    const {teamName}=route.params;
+    const {teamName, screenType}=route.params;
 
     const [Items, setItems] = useState(teamsData[teamName])
 
@@ -15,9 +15,7 @@ export default function RosterView({navigation, route}) {
                 {
                     Items.map((item) => {
                         return (
-                            <TouchableOpacity key={item.key} onPress={async () => { navigation.navigate("Props",  {playerName: item.name, picture: item.uri}, )
-                                // const player = new Player(item.name.split(" ").join("_"));
-                                // console.log(await player.getStats("Points + Assists + Rebounds"));
+                            <TouchableOpacity key={item.key} onPress={async () => { navigation.navigate(screenType,  {playerName: item.name, picture: item.uri}, )
                             }}>
                                 <View style={styles.teams}>
                                     <View style={styles.logobox}>

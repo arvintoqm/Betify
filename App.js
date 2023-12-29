@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -7,15 +8,23 @@ import RosterView from './app/Views/RosterView';
 import PlayerPropsView from './app/Views/PlayerPropsView';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import BestBetsView from './app/Views/BestBetsView';
+import PlayerStatsPickerView from './app/Views/PlayerStatsPickerView';
+import PickSorter from './app/data/BestPicksSorter';
+import { Provider } from 'react-native-paper'; 
+import { Store } from './app/redux/store'; 
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
+const PickSorterContext = React.createContext();
 
 const SinglePropsStack = () => (
   <Stack.Navigator>
           <Stack.Screen
             name="Teams"
             component={TeamView}
+            initialParams={{ screenType: "Props" }}
             options={{
               headerStyle: {
                 backgroundColor: '#000000',
@@ -47,7 +56,48 @@ const SinglePropsStack = () => (
 )
 
 const BestBets = () => (
-  <Text>Not Implemented Yet</Text>
+  <Stack.Navigator>
+        <Stack.Screen
+            name="Best Bets List"
+            component={BestBetsView}
+            options={{
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTintColor: '#fff'
+            }}
+        />
+        <Stack.Screen
+            name="Teams"
+            component={TeamView}
+            options={{
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTintColor: '#fff'
+            }}
+        />
+        <Stack.Screen 
+              name="Players"
+              component={RosterView}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#000000',
+                },
+                headerTintColor: '#fff'
+              }}
+        />
+        <Stack.Screen 
+              name="Stats Picker"
+              component={PlayerStatsPickerView}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#000000',
+                },
+                headerTintColor: '#fff'
+              }}
+        />
+  </Stack.Navigator>
 )
 
 const ParleyBuilder = () => (
@@ -63,7 +113,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, size, color }) => {
             let iconName;
-            if (route.name === 'Props') {
+            if (route.name === 'PlayerProps') {
               iconName = 'user';
               size = focused ? 25 : 20;
               color = focused ? '#f0f' : '#555';
@@ -71,7 +121,7 @@ export default function App() {
               iconName = 'medal';
               size = focused ? 25 : 20;
               color = focused ? '#f0f' : '#555';
-            } else if (route.name === 'Parley') {
+            } else if (route.name === 'Parlay') {
               iconName = 'trophy';
               size = focused ? 25 : 20;
               color = focused ? '#f0f' : '#555';
@@ -99,7 +149,7 @@ export default function App() {
         barStyle={{ backgroundColor: '#fff' }}
       >
       <Tab.Screen
-          name="Props"
+          name="PlayerProps"
           component={SinglePropsStack}
           options={{
             tabBarLabel: 'Props',
@@ -115,17 +165,16 @@ export default function App() {
           }}
         />
       <Tab.Screen
-          name="Parley"
+          name="Parlay"
           component={ParleyBuilder}
           options={{
-            tabBarLabel: 'Parley',
+            tabBarLabel: 'Parlay',
             // Other tab options if needed
           }}
         />
         
       </Tab.Navigator>
     </NavigationContainer>
-    
   );
 }
 

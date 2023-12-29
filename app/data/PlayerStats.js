@@ -24,9 +24,29 @@ export default function Player(playerName) {
         }
     };
 
-    this.getStats = async function(stat, games, overUnder, total) {
+    this.getMultipleStats = async function(statsList){
+        const filteredData = statsList.filter(sublist => sublist[1] !== '');
+        
+        const mappedList = await Promise.all(filteredData.map(async (lst) => {
+            const playerNameFormatted = playerName.split("_").join(" ");
+
+            const stat5 = await this.getStats(lst[0], '5', 'left', lst[1]);
+            const stat10 = await this.getStats(lst[0], '10', 'left', lst[1]);
+            const statSeason = await this.getStats(lst[0], 'season', 'left', lst[1]);
+    
+            return [playerNameFormatted, stat5, stat10, statSeason];
+        }));
+        console.log(mappedList);
+        return mappedList;
+
+    };
+
+    this.setStats = async function(){
         await getPlayerId(); // Wait for setStats to complete and populate stats
         await setStats();
+    };
+
+    this.getStats = async function(stat, games, overUnder, total) {
         let newList;
         let filterList;
 
@@ -59,7 +79,6 @@ export default function Player(playerName) {
         let fraction = `${newLength} / ${ogLength}`;
         
         let per = `${((newLength / ogLength) * 100).toFixed(2)}%`;
-
 
         return [fraction, per];
         

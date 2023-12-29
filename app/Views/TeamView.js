@@ -33,7 +33,9 @@ import JazzImage from '../assets/NBATeams/Jazz.png';
 import WizardsImage from '../assets/NBATeams/Wizards.png';
 
 
-export default function TeamView({navigation}) {
+export default function TeamView({navigation, route}) {
+
+    const {screenType} = route.params;
 
     const [Items, setItems] = useState([
         { key: 1, team: 'Atlanta Hawks', url: HawksImage },
@@ -75,7 +77,7 @@ export default function TeamView({navigation}) {
                 {
                     Items.map((item) => {
                         return (
-                            <TouchableOpacity key={item.key} onPress={() => navigation.navigate("Players",  {teamName: item.team})}>
+                            <TouchableOpacity key={item.key} onPress={() => navigation.navigate("Players",  {teamName: item.team, screenType: screenType})}>
                                 <View style={styles.teams}>
                                     <View style={styles.logobox}>
                                         <Image style={styles.logo} source={item.url} />
