@@ -1,9 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, TouchableOpacity, View, StyleSheet, Text, Image, TextInput } from 'react-native';
 import Player from '../data/PlayerStats';
 import PickSorter from '../data/BestPicksSorter';
+import { usePickSorter } from '../data/PickSorterContext';
 
 export default function PlayerStatsPickerView({ navigation, route }) {
+
+    const pickSorter = usePickSorter();
 
     const { playerName, picture } = route.params;
 
@@ -33,10 +36,10 @@ export default function PlayerStatsPickerView({ navigation, route }) {
             ["Points + Assists + Rebounds", pointsAssistsRebounds], ["Steals + Blocks", stealsBlocks],])
 
             await pickSorter.addPicks(lst1);
-
+            
             await pickSorter.sort();
 
-            console.log(pickSorter.getAllPicks());
+            navigation.popToTop();
             
             
         } catch (error) {

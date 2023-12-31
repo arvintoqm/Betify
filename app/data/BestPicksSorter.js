@@ -1,11 +1,11 @@
 
 export default function PickSorter() {
     allPicks = [];
-    sortBy = 3;
+    sortBy = 5;
 
 
     this.addPicks = (picks) => {
-        allPicks.concat(picks);
+        allPicks = allPicks.concat(picks);
     };
 
     this.changeSortBy = (value) => {
@@ -14,6 +14,15 @@ export default function PickSorter() {
 
     this.getAllPicks = () => {
         return allPicks;
+    };
+
+    this.clearAllPicks = () => {
+        allPicks = [];
+    };
+
+    this.changeSortBy = async (number) => {
+        sortBy = number;
+        await this.sort();
     };
 
     const compareByPercentage = (a, b) => {
@@ -25,7 +34,7 @@ export default function PickSorter() {
 
     this.sort = async () => {
         let newOrder = await allPicks.sort(compareByPercentage);
-        allPicks = newOrder;
+        allPicks = await newOrder;
     }
 
 }   

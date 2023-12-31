@@ -11,8 +11,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BestBetsView from './app/Views/BestBetsView';
 import PlayerStatsPickerView from './app/Views/PlayerStatsPickerView';
 import PickSorter from './app/data/BestPicksSorter';
-import { Provider } from 'react-native-paper'; 
-import { Store } from './app/redux/store'; 
+import { PickSorterProvider } from './app/data/PickSorterContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -108,6 +107,7 @@ const ParleyBuilder = () => (
 export default function App() {
 
   return (
+    <PickSorterProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -175,6 +175,7 @@ export default function App() {
         
       </Tab.Navigator>
     </NavigationContainer>
+    </PickSorterProvider>
   );
 }
 

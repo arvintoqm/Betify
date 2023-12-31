@@ -34,12 +34,12 @@ export default function Player(playerName) {
             const stat10 = await this.getStats(lst[0], '10', 'left', lst[1]);
             const statSeason = await this.getStats(lst[0], 'season', 'left', lst[1]);
     
-            return [playerNameFormatted, stat5, stat10, statSeason];
+            return [playerNameFormatted, lst[0], lst[1], stat5, stat10, statSeason];
         }));
-        console.log(mappedList);
         return mappedList;
-
     };
+
+
 
     this.setStats = async function(){
         await getPlayerId(); // Wait for setStats to complete and populate stats
