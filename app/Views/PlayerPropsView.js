@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet, View, SafeAreaView, Image, ScrollView, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, StyleSheet, View, SafeAreaView, Image, ScrollView, TextInput, Button, TouchableOpacity, Alert, FlatList } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import Player from '../data/PlayerStats';
 
@@ -26,6 +26,7 @@ export default function PlayerPropsView({ navigation, route }) {
     const [l1Per, setl1Per] = useState('');
     const [l2Per, setl2Per] = useState('');
     const [l3Per, setl3Per] = useState('');
+    const [fullStat, setFullStat] = useState([]);
 
 
     const handleButtonPress = async () => {
@@ -40,6 +41,8 @@ export default function PlayerPropsView({ navigation, route }) {
           let lst1 = await player.getStats(selectedValue, value1, selectedSide, textInputValue);
           let lst2 = await player.getStats(selectedValue, value2, selectedSide, textInputValue);
           let lst3 = await player.getStats(selectedValue, 'season', selectedSide, textInputValue);
+          let lst4 = await player.getFullStatList(selectedValue);
+
     
           // Now update the state after the promises have resolved
           setl1(lst1[0]);
@@ -49,6 +52,7 @@ export default function PlayerPropsView({ navigation, route }) {
           setl2Per(lst2[1]);
           setl3Per(lst3[1]);
           setShowFractionView(true);
+          setFullStat(lst4);
         }
       } catch (error) {
         console.error('Error fetching player stats:', error);
@@ -58,8 +62,41 @@ export default function PlayerPropsView({ navigation, route }) {
       const handleSideClick = (side) => {
         setSelectedSide(side);
       };
-    
-    
+
+      const getColour = (value) => {
+        if (value === 'DNP') {
+          return 'gray';
+        }
+        const comparisonValue = parseFloat(value);
+        const inputTextValue = parseFloat(textInputValue);
+      
+        if (selectedSide === 'left') {
+          return comparisonValue > inputTextValue ? 'green' : 'red';
+        } else {
+          return comparisonValue < inputTextValue ? 'green' : 'red';
+        }
+      };
+
+      useEffect(() => {
+        // This effect will run whenever any of the specified state variables change
+        setShowFractionView(false);
+      }, [selectedValue, textInputValue, selectedSide, value1, value2]);
+      
+      const getResult = (value) => {
+        if (value === 'DNP') {
+          return 'DNP';
+        }
+        const comparisonValue = parseFloat(value);
+        const inputTextValue = parseFloat(textInputValue);
+      
+        if (selectedSide === 'left') {
+          return comparisonValue > inputTextValue ? 'W' : 'L';
+        } else {
+          return comparisonValue < inputTextValue ? 'W' : 'L';
+        }
+      };
+
+ 
 
     return (
         <SafeAreaView style={styles.container}>
@@ -178,10 +215,50 @@ export default function PlayerPropsView({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                
-                
+                {showFractionView && (
+                  <View style={styles.flatListContainer}> 
+                      <View style={{flexDirection: 'row'}}>
+                          <View style={styles.flatListView}>
+                              <Text style={styles.headerText}>
+                                  Total {selectedValue}
+                              </Text>
+                          </View>
+                          <View style={styles.flatListView}>
+                              <Text style={styles.headerText}>
+                                  Over Under
+                              </Text>
+                          </View>
+                      </View>
+                      
+                      <View style={styles.separator} />
+
+                      {
+                            fullStat.map((item, index) => {
+                                return (
+                                  <View key={index} style={{flexDirection: 'row'}}>
+                                      <View style={styles.flatListView}>
+                                          <Text style={styles.headerText}>
+                                              {item}
+                                          </Text>
+                                      </View>
+                                      <View style={[styles.flatListView, { backgroundColor: getColour(item) }]}>
+                                          <Text style={styles.headerText}>
+                                              {getResult(item)}
+                                          </Text>
+                                      </View>
+                                      <View style={styles.separator} />
+                                  </View>   
+                                )
+                            })
+                        }
+
+                      
+                  </View>
+                    )}
 
             </ScrollView>
+
+
         </SafeAreaView>
     );
 }
@@ -310,5 +387,30 @@ const styles = StyleSheet.create({
       fractionPercentage: {
         color: '#fff',
         fontSize: 16,
+      },
+      headerText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+      flatListView: {
+        width: '50%',
+      },
+      flatListContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignSelf: 'center',
+        marginTop: '10%',
+      },
+      separator: {
+        height: 1,
+        backgroundColor: 'gray', // You can adjust the color as needed
+        marginVertical: 8, // You can adjust the margin as needed
+      },
+      statsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
       },
 });

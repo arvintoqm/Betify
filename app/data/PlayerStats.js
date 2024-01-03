@@ -82,8 +82,8 @@ export default function Player(playerName) {
 
         return [fraction, per];
         
-        
     };
+
 
     let getStatsHelper = function(stat) {
         switch (stat) {
@@ -112,6 +112,36 @@ export default function Player(playerName) {
             
         }
     };
+
+
+    this.getFullStatList = function(stat) {
+        switch (stat) {
+            case "Points":
+                return stats.map(game => (game["min"] !== "00" ? game["pts"] : "DNP"));
+            case "Assists":
+                return stats.map(game => (game["min"] !== "00" ? game["ast"] : "DNP"));
+            case "Rebounds":
+                return stats.map(game => (game["min"] !== "00" ? game["reb"] : "DNP"));
+            case "Steals":
+                return stats.map(game => (game["min"] !== "00" ? game["stl"] : "DNP"));
+            case "Blocks":
+                return stats.map(game => (game["min"] !== "00" ? game["blk"] : "DNP"));
+            case "Threes Made":
+                return stats.map(game => (game["min"] !== "00" ? game["fg3m"] : "DNP"));
+            case "Points + Assists":
+                return stats.map(game => (game["min"] !== "00" ? game["pts"] + game["ast"] : "DNP"));
+            case "Points + Rebounds":
+                return stats.map(game => (game["min"] !== "00" ? game["pts"] + game["reb"] : "DNP"));
+            case "Rebounds + Assists":
+                return stats.map(game => (game["min"] !== "00" ? game["reb"] + game["ast"] : "DNP"));
+            case "Points + Assists + Rebounds":
+                return stats.map(game => (game["min"] !== "00" ? game["pts"] + game["ast"] + game["reb"] : "DNP"));
+            case "Steals + Blocks":
+                return stats.map(game => (game["min"] !== "00" ? game["stl"] + game["blk"] : "DNP"));
+        }
+    };
+
+
 
 
 }
